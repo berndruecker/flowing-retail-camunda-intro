@@ -26,10 +26,10 @@
       <bpmn:outgoing>SequenceFlow_0630d7l</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_0um4rbp</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="SequenceFlow_0630d7l" name="risky order" sourceRef="ExclusiveGateway_0qnqmr9" targetRef="Task_1kmce60">
+    <bpmn:sequenceFlow id="SequenceFlow_0630d7l" name="risky order" sourceRef="ExclusiveGateway_0qnqmr9" targetRef="UserTask_ApproveOrder">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{riskyOrder}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_178fvdr" sourceRef="Task_1kmce60" targetRef="ExclusiveGateway_0vq09bn" />
+    <bpmn:sequenceFlow id="SequenceFlow_178fvdr" sourceRef="UserTask_ApproveOrder" targetRef="ExclusiveGateway_0vq09bn" />
     <bpmn:sequenceFlow id="SequenceFlow_0um4rbp" name="normal order" sourceRef="ExclusiveGateway_0qnqmr9" targetRef="Task_1rezvtb">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{not riskyOrder}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -47,7 +47,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_1r6z9t2" name="no" sourceRef="ExclusiveGateway_0vq09bn" targetRef="EndEvent_050ahgo">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{not approved}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:userTask id="Task_1kmce60" name="Approve order">
+    <bpmn:userTask id="UserTask_ApproveOrder" name="Approve order">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="orderAmount" label="Order amount" type="long" />
@@ -64,10 +64,10 @@
       <bpmn:outgoing>SequenceFlow_178fvdr</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="SequenceFlow_0w1xhsp" sourceRef="Task_1rezvtb" targetRef="Task_1lan2u3" />
-    <bpmn:endEvent id="EndEvent_02lyccn" name="Order shipped">
+    <bpmn:endEvent id="EndEvent_OrderShipped" name="Order shipped">
       <bpmn:incoming>SequenceFlow_0g94jss</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0gj6p2t" sourceRef="Task_1lan2u3" targetRef="Task_1oxinyg" />
+    <bpmn:sequenceFlow id="SequenceFlow_0gj6p2t" sourceRef="Task_1lan2u3" targetRef="ReceiveTask_WaitForDelivery" />
     <bpmn:sendTask id="Task_1lan2u3" name="Initiate delivery" camunda:class="io.flowing.retail.monolith.camunda.adapter.InitiateDeliveryAdapter">
       <bpmn:incoming>SequenceFlow_0w1xhsp</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0gj6p2t</bpmn:outgoing>
@@ -77,8 +77,8 @@
       <bpmn:incoming>SequenceFlow_06eby5q</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0w1xhsp</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="SequenceFlow_0g94jss" sourceRef="Task_1oxinyg" targetRef="EndEvent_02lyccn" />
-    <bpmn:receiveTask id="Task_1oxinyg" name="Wait for delivery" messageRef="Message_0loydec">
+    <bpmn:sequenceFlow id="SequenceFlow_0g94jss" sourceRef="ReceiveTask_WaitForDelivery" targetRef="EndEvent_OrderShipped" />
+    <bpmn:receiveTask id="ReceiveTask_WaitForDelivery" name="Wait for delivery" messageRef="Message_0loydec">
       <bpmn:incoming>SequenceFlow_0gj6p2t</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0g94jss</bpmn:outgoing>
     </bpmn:receiveTask>
@@ -164,7 +164,7 @@
           <dc:Bounds x="676.65625" y="284.5" width="13" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_0kvmiqd_di" bpmnElement="Task_1kmce60">
+      <bpmndi:BPMNShape id="UserTask_0kvmiqd_di" bpmnElement="UserTask_ApproveOrder">
         <dc:Bounds x="486" y="266" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0w1xhsp_di" bpmnElement="SequenceFlow_0w1xhsp">
@@ -174,7 +174,7 @@
           <dc:Bounds x="808" y="179.5" width="0" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="EndEvent_02lyccn_di" bpmnElement="EndEvent_02lyccn">
+      <bpmndi:BPMNShape id="EndEvent_02lyccn_di" bpmnElement="EndEvent_OrderShipped">
         <dc:Bounds x="1100" y="183" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1083" y="222" width="70" height="13" />
@@ -200,7 +200,7 @@
           <dc:Bounds x="1080" y="179.5" width="0" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ReceiveTask_08fu9k7_di" bpmnElement="Task_1oxinyg">
+      <bpmndi:BPMNShape id="ReceiveTask_08fu9k7_di" bpmnElement="ReceiveTask_WaitForDelivery">
         <dc:Bounds x="960" y="161" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
