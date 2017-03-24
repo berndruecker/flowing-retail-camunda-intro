@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="definitions_1kuk6kp" name="definitions" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="RiskyOrder" name="Risky Order">
+    <decisionTable id="decisionTable" hitPolicy="FIRST">
+      <input id="InputClause_139auqg" label="Customer category" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_1jzx2fv" typeRef="string">        <text>customerCategory</text>
+</inputExpression>
+        <inputValues id="UnaryTests_14sn8e9">        <text><![CDATA["unknown","A","B","C"]]></text>
+</inputValues>
+      </input>
+      <input id="input1" label="Order amount" camunda:inputVariable="">
+        <inputExpression id="inputExpression1" typeRef="long">        <text>orderAmount</text>
+</inputExpression>
+      </input>
+      <output id="output1" label="Risky Order?" name="riskyOrder" typeRef="boolean" />
+      <rule id="row-229401289-1">
+        <inputEntry id="UnaryTests_15cy1da">        <text><![CDATA["unknown"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1mnkm3z">        <text></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_17rv8sl">        <text>true</text>
+</outputEntry>
+      </rule>
+      <rule id="row-229401289-2">
+        <inputEntry id="UnaryTests_0slk9mp">        <text><![CDATA["C"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_11sdgpf">        <text><![CDATA[> 10000]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_1n1gtje">        <text>true</text>
+</outputEntry>
+      </rule>
+      <rule id="row-229401289-3">
+        <inputEntry id="UnaryTests_0e8d2ic">        <text><![CDATA["B"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1qclxle">        <text><![CDATA[> 25000]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0rujyv4">        <text>true</text>
+</outputEntry>
+      </rule>
+      <rule id="row-229401289-4">
+        <description></description>
+        <inputEntry id="UnaryTests_1sva7ln">        <text><![CDATA["A"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1r9ppde">        <text></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_1gajvu2">        <text>false</text>
+</outputEntry>
+      </rule>
+      <rule id="row-229401289-5">
+        <inputEntry id="UnaryTests_1r8v2td">        <text></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_0q5jyzx">        <text></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_1ugg2tj">        <text>false</text>
+</outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
