@@ -1,4 +1,4 @@
-package io.flowing.retail.monolith;
+package io.flowing.retail.simpleapp;
 
 import javax.swing.text.StyleContext.SmallAttributeSet;
 

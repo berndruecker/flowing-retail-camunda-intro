@@ -1,4 +1,4 @@
-package io.flowing.retail.monolith.entitystate;
+package io.flowing.retail.simpleapp.entitystate;
 
 import java.util.UUID;
 

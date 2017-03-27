@@ -1,4 +1,4 @@
-package io.flowing.retail.monolith.camunda;
+package io.flowing.retail.simpleapp.camunda;
 
 import org.camunda.bpm.application.PostDeploy;
 import org.camunda.bpm.application.ProcessApplication;
@@ -10,8 +10,8 @@ import org.camunda.bpm.model.bpmn.Bpmn;
 import com.camunda.consulting.util.LicenseHelper;
 import com.camunda.consulting.util.UserGenerator;
 
-import io.flowing.retail.monolith.camunda.adapter.DoPaymentAdapter;
-import io.flowing.retail.monolith.camunda.adapter.InitiateDeliveryAdapter;
+import io.flowing.retail.simpleapp.camunda.adapter.DoPaymentAdapter;
+import io.flowing.retail.simpleapp.camunda.adapter.InitiateDeliveryAdapter;
 
 /**
  * Process Application exposing this application's resources the process engine. 
@@ -22,7 +22,7 @@ public class CamundaBpmProcessApplication extends ServletProcessApplication {
   public void createDeployment(String processArchiveName, DeploymentBuilder deploymentBuilder) {
     
     deploymentBuilder
-        .addModelInstance("order.bpmn", Bpmn.createProcess("Order").executable()
+        .addModelInstance("order.bpmn", Bpmn.createExecutableProcess("Order")
           .startEvent()
               .camundaFormField().camundaId("customerCategory").camundaType("string").camundaLabel("Customer category").camundaFormFieldDone()
               .camundaFormField().camundaId("orderAmount").camundaType("long").camundaLabel("Order amount").camundaFormFieldDone()

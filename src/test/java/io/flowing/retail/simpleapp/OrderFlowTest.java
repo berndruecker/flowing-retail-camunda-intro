@@ -1,4 +1,4 @@
-package io.flowing.retail.monolith;
+package io.flowing.retail.simpleapp;
 
 import static org.camunda.bpm.engine.test.assertions.ProcessEngineAssertions.*;
 
@@ -66,7 +66,6 @@ public class OrderFlowTest {
         "OrderGraphic", //
         Variables.putValue("customerCategory", "unkown").putValue("orderAmount", 500)).execute();
     
-    // "then" part of the test
     verify(orderFlow).hasFinished("EndEvent_OrderShipped");
   }
 

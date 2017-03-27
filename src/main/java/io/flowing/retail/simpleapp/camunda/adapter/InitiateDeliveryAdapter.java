@@ -1,4 +1,4 @@
-package io.flowing.retail.monolith.camunda.adapter;
+package io.flowing.retail.simpleapp.camunda.adapter;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;

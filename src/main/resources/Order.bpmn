@@ -3,7 +3,8 @@
   <bpmn:process id="OrderGraphic" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1" name="Order placed">
       <bpmn:extensionElements>
-        <camunda:formData>
+        <camunda:formData businessKey="orderId">
+          <camunda:formField id="orderId" label="Order id" type="string" />
           <camunda:formField id="orderAmount" label="Order amount" type="long" />
           <camunda:formField id="customerCategory" label="Customer category" type="enum">
             <camunda:value id="unknown" name="unknown" />
@@ -68,11 +69,11 @@
       <bpmn:incoming>SequenceFlow_0g94jss</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0gj6p2t" sourceRef="Task_1lan2u3" targetRef="ReceiveTask_WaitForDelivery" />
-    <bpmn:sendTask id="Task_1lan2u3" name="Initiate delivery" camunda:class="io.flowing.retail.monolith.camunda.adapter.InitiateDeliveryAdapter">
+    <bpmn:sendTask id="Task_1lan2u3" name="Initiate delivery" camunda:class="io.flowing.retail.simpleapp.camunda.adapter.InitiateDeliveryAdapter">
       <bpmn:incoming>SequenceFlow_0w1xhsp</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0gj6p2t</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_1rezvtb" name="Do payment" camunda:asyncBefore="true" camunda:class="io.flowing.retail.monolith.camunda.adapter.DoPaymentAdapter">
+    <bpmn:serviceTask id="Task_1rezvtb" name="Do payment" camunda:asyncBefore="true" camunda:class="io.flowing.retail.simpleapp.camunda.adapter.DoPaymentAdapter">
       <bpmn:incoming>SequenceFlow_0um4rbp</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_06eby5q</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0w1xhsp</bpmn:outgoing>
