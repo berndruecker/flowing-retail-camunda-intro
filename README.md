@@ -18,10 +18,26 @@ Goto
 
 ## Flows
 
-You can define [long running flows](https://blog.bernd-ruecker.com/what-are-long-running-processes-b3ee769f0a27#.wpw8hrmux) easily, either by code:
+You can define [long running flows](https://blog.bernd-ruecker.com/what-are-long-running-processes-b3ee769f0a27#.wpw8hrmux) easily, either [by code](https://github.com/berndruecker/flowing-retail-camunda-intro/blob/master/src/main/java/io/flowing/retail/simpleapp/camunda/CamundaBpmProcessApplication.java#L24):
 
 ```
-kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic flowing-retail
+    deploymentBuilder
+        .addModelInstance("order.bpmn", Bpmn.createExecutableProcess("Order")
+          .startEvent()
+              .camundaFormField().camundaId("customerCategory").camundaType("string").camundaLabel("Customer category").camundaFormFieldDone()
+              .camundaFormField().camundaId("orderAmount").camundaType("long").camundaLabel("Order amount").camundaFormFieldDone()
+          .businessRuleTask().name("Determine risk of fraud")
+              .camundaDecisionRef("RiskyOrder")
+              .camundaResultVariable("riskyOrder").camundaMapDecisionResult("singleEntry")        
+          .serviceTask().name("Do payment")
+              .camundaClass(DoPaymentAdapter.class.getName()).camundaAsyncBefore()
+          .sendTask().name("Initiate delivery")
+              .camundaClass(InitiateDeliveryAdapter.class.getName())
+          .receiveTask().name("Wait for delivery")
+              .message("MessageDeliveryDone")
+          .endEvent()
+          .done()
+        );
 ```
 
 or by using the graphical notation BPMN:
