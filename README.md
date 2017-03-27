@@ -5,14 +5,14 @@ This application uses the same business story, but implements it as one simple M
 
 # How to run
 
+Download and run one of the [https://camunda.org/download/](Camunda distributions).
+
 ```
 mvn install
-cp target/flowing-retail-camunda-intro.war %DEPLOYMENT_FOLDER%/
+cp target/flowing-retail-camunda-intro.war %YOUR_DEPLOYMENT_FOLDER%/
 ```
 
-Goto 
-
-![Camunda tasklist](http://localhost:8080/camunda) and start a new process instance from there. 
+Goto [Camunda tasklist](http://localhost:8080/camunda) and start a new process instance from there. 
 
 # What does it demonstrate?
 
