@@ -7,8 +7,7 @@ public class InitiateDeliveryAdapter implements JavaDelegate {
 
   @Override
   public void execute(DelegateExecution execution) throws Exception {
-    // TODO Auto-generated method stub
-
+    System.out.println("Now we would initiate delivery by sending a AMQP message...");
   }
 
 }

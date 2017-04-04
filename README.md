@@ -1,11 +1,12 @@
 # Simple flowing-retail application using Camunda 
 
-The [https://github.com/flowing/flowing-retail] sample system is the "big brother" of this application and implements an overall order system using a couple of collaborating microservices. 
-This application uses the same business story, but implements it as one simple Maven project, forming a Camunda process application, deployable on a container running Camunda (e.g. Tomcat or WildFly). 
+This application implements a simple order flow as Camunda process application, deployable on a container running Camunda (e.g. Tomcat or WildFly). It is the small sister of the [https://github.com/flowing/flowing-retail] sample system where the same flow is carried out by multiple collaborating microservices. 
 
 # How to run
 
 Download and run one of the [https://camunda.org/download/](Camunda distributions).
+
+Build process application using maven:
 
 ```
 mvn install
