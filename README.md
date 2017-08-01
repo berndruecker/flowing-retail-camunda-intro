@@ -4,7 +4,7 @@ This application implements a simple order flow as Camunda process application, 
 
 # How to run
 
-Download and run one of the [https://camunda.org/download/](Camunda distributions).
+Download and run one of the [Camunda distributions](https://camunda.org/download/).
 
 Build process application using maven:
 
